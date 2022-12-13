@@ -1,7 +1,7 @@
 from typing import List
 
 
-def linear_search(numbers: List[int], value: int) -> List[int]:
+def linear_search(numbers: List[int], value: int) -> int:
     for i in range(0, len(numbers)):
         if numbers[i] == value:
             return i
@@ -9,7 +9,7 @@ def linear_search(numbers: List[int], value: int) -> List[int]:
 
 
 # partern 1
-def binary_search1(numbers: List[int], value: int) -> List[int]:
+def binary_search1(numbers: List[int], value: int) -> int:
     left, right = 0, len(numbers) - 1
     while left <= right:
         mid = (left + right) // 2
@@ -23,7 +23,7 @@ def binary_search1(numbers: List[int], value: int) -> List[int]:
 
 
 # partern 2
-def binary_search2(numbers: List[int], value: int) -> List[int]:
+def binary_search2(numbers: List[int], value: int) -> int:
     def _binary_search(numbers: List[int], value: int, left: int, right: int) -> int:
         if left > right:
             return -1
@@ -33,7 +33,7 @@ def binary_search2(numbers: List[int], value: int) -> List[int]:
         elif numbers[mid] < value:
             return _binary_search(numbers, value, mid + 1, right)
         else:
-            return _binary_search(numbers, value, left, right - 1)
+            return _binary_search(numbers, value, left, mid - 1)
 
     return _binary_search(numbers, value, 0, len(numbers) - 1)
 
