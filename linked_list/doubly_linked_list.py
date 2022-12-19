@@ -36,14 +36,56 @@ class DoublyLinkedList:
         new_node.next = self.head
         self.head = new_node
 
+    def print(self) -> None:
+        current_node = self.head
+        while current_node:
+            print(current_node.data)
+            current_node = current_node.next
+
+    def remove(self, data: Any) -> None:
+        current_node = self.head
+        if current_node and current_node.data == data:
+            if current_node.next is None:
+                current_node = None
+                self.head = None
+                return
+            else:
+                next_node = current_node.next
+                next_node.prev = None
+                current_node = None
+                self.head = next_node
+                return
+
+        while current_node and current_node.data != data:
+            current_node = current_node.next
+
+        if current_node is None:
+            return
+
+        if current_node.next is None:
+            prev_node = current_node.prev
+            prev_node.next = None
+            current_node = None
+            return
+        else:
+            prev_node = current_node.prev
+            next_node = current_node.next
+            prev_node.next = next_node
+            next_node.prev = prev_node
+            current_node = None
+            return
+
 
 if __name__ == "__main__":
     dll = DoublyLinkedList()
     dll.append(1)
     dll.append(2)
     dll.append(3)
-    dll.insert(99)
-    print(dll.head.data)
-    print(dll.head.next.data)
-    print(dll.head.next.next.data)
-    print(dll.head.next.next.next.data)
+    dll.insert(0)
+    dll.print()
+    print("==================")
+    dll.remove(0)
+    dll.print()
+    print("==================")
+    dll.remove(2)
+    dll.print()
