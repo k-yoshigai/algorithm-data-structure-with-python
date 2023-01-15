@@ -32,8 +32,9 @@ class LinkedList:
     def print(self) -> None:
         current_node = self.head
         while current_node:
-            print(current_node.data)
+            print(current_node.data, end=" ")
             current_node = current_node.next
+        print()
 
     def remove(self, data: Any) -> None:
         current_node = self.head
@@ -55,10 +56,9 @@ class LinkedList:
     def reverse_iterative(self) -> None:
         previous_node = None
         current_node = self.head
-        print(f"head: {self.head.data}")
 
         while current_node:
-            # Useful video ot udnerstand
+            # Useful video to udnerstand
             #     https://www.youtube.com/watch?v=D7y_hoT_YZI
             next_node = current_node.next
             current_node.next = previous_node
@@ -82,7 +82,7 @@ class LinkedList:
         self.head = _reverse_recursive(self.head, None)
 
     def reverse_even(self) -> None:
-        def _reverse_even(head: Node, previous_node: Node) -> Optional(Node):
+        def _reverse_even(head: Node, previous_node: Node) -> Optional[Node]:
             if head is None:
                 return None
 
@@ -95,13 +95,25 @@ class LinkedList:
 
             if current_node != head:
                 head.next = current_node
+                _reverse_even(current_node, None)
+                return previous_node
+            else:
+                head.next = _reverse_even(head.next, head)
+                return head
+
+        self.head = _reverse_even(self.head, None)
 
 
 if __name__ == "__main__":
     ll = LinkedList()
     ll.append(1)
     ll.append(2)
+    ll.append(4)
+    ll.append(6)
     ll.insert(0)
     ll.append(3)
-    ll.append(4)
+    ll.append(6)
+    ll.append(2)
+    ll.print()
+    ll.reverse_even()
     ll.print()
