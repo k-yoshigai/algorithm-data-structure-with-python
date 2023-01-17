@@ -39,8 +39,9 @@ class DoublyLinkedList:
     def print(self) -> None:
         current_node = self.head
         while current_node:
-            print(current_node.data)
+            print(current_node.data, end=" ")
             current_node = current_node.next
+        print()
 
     def remove(self, data: Any) -> None:
         current_node = self.head
@@ -104,14 +105,27 @@ class DoublyLinkedList:
 
         self.head = _reverse_recursive(self.head)
 
+    def sort(self) -> None:
+        if self.head is None:
+            return
+
+        current_node = self.head
+        while current_node.next:
+            next_node = current_node.next
+            while next_node:
+                if current_node.data > next_node.data:
+                    current_node.data, next_node.data = next_node.data, current_node.data
+                next_node = next_node.next
+            current_node = current_node.next
+
 
 if __name__ == "__main__":
     dll = DoublyLinkedList()
     dll.append(1)
+    dll.append(5)
     dll.append(2)
-    dll.append(3)
-    dll.insert(0)
+    dll.append(9)
     dll.print()
     print("==================")
-    dll.reverse_recursive()
+    dll.sort()
     dll.print()
