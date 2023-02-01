@@ -12,6 +12,7 @@ def generate_pascal_triangle(depth: int) -> List[int]:
 
 def print_pascal_triangle(data: List[int]) -> None:
     max_digit = len(str(max(data[-1])))
+    # To make width even.
     width = max_digit + (max_digit % 2) + 2
 
     for index, line in enumerate(data):
